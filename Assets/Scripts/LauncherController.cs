@@ -7,17 +7,18 @@ public class LauncherController : MonoBehaviour
     [SerializeField] GameObject ballPrefab;
     [SerializeField] float launchForce = 10f;
 
-    private Rigidbody ballRB;
+    private bool isBallActive = false;
 
     private void Awake()
     {
-        ballRB = ballPrefab.GetComponent<Rigidbody>();
+        isBallActive = false; // Ensure the flag starts as false
     }
 
     private void Update()
     {
         if (Input.touchCount > 0)
         {
+            Debug.Log("LOL");
             Touch touch = Input.GetTouch(0);
             if(touch.phase == TouchPhase.Began)
             {
@@ -26,11 +27,22 @@ public class LauncherController : MonoBehaviour
         }
     }
 
-    public void LaunchBall()
+    private void LaunchBall()
     {
-        GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
-        ballRB.velocity = Vector2.up * launchForce;
+        if (!isBallActive)
+        {
+            GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+            Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 
+            ballRB.velocity = Vector2.up * launchForce;
+            isBallActive = true;
+        }
+    }
+
+    public void ResetBallStatus()
+    {
+        isBallActive = false;
+        Debug.Log(isBallActive);
     }
 }
   

@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 6178355528141364153, guid: e32b6bd0595a10e4eb6babc9bcbf1964, type: 3}
-  launchForce: 100
+  launchForce: 10
 --- !u!1 &720874280
 GameObject:
   m_ObjectHideFlags: 0
