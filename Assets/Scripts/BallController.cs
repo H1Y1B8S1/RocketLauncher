@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
 
-    private float ballLifetime = 3f;
+    private readonly float ballLifetime = 3f;
     private LauncherController launcherController;
 
     [System.Obsolete]
