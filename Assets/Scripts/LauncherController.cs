@@ -52,18 +52,19 @@ public class LauncherController : MonoBehaviour
     private void UpdateDirectionLine(Vector2 endPosition)
     {
         Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endPosition.x, endPosition.y, 10f));
-        Vector3 launchDirection = (touchWorldPosition - transform.position).normalized;
-        Vector3 lineEndPosition = transform.position + launchDirection * directionLineSize; // Adjust the multiplier (3f) for desired line length
+        Vector2 launchDirection = ((Vector2)touchWorldPosition - (Vector2)transform.position).normalized;
+        Vector2 lineEndPosition = (Vector2)transform.position + launchDirection * directionLineSize;
 
         Vector3[] linePositions = { transform.position, lineEndPosition };
         directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
-        directionLine.enabled = true; // Ensure the line renderer is enabled
+        directionLine.enabled = true;
 
         // Debug information
-        Debug.DrawRay(transform.position, launchDirection, Color.green); // Draw a debug ray in the launch direction
-        Debug.Log("Line Direction: " + launchDirection); // Print the launch direction to the console
+        Debug.DrawRay(transform.position, (Vector3)launchDirection, Color.green);
+        Debug.Log("Line Direction: " + launchDirection);
     }
+
 
 
     private void ClearDirectionLine()
