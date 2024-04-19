@@ -32,9 +32,9 @@ public class LauncherController : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector2 touchEndPosition = touch.position;
-                Vector2 touchDelta = touchEndPosition - touchStartPosition;
+                Vector2 touchDelta = touchEndPosition - new Vector2(transform.position.x,transform.position.y);
 
-                if (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
+                // (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
                 {
                     Vector2 touchDirection = touchDelta.normalized;
                     LaunchBall(touchDirection);
@@ -61,8 +61,8 @@ public class LauncherController : MonoBehaviour
         directionLine.enabled = true;
 
         // Debug information
-        Debug.DrawRay(transform.position, (Vector3)launchDirection, Color.green);
-        Debug.Log("Line Direction: " + launchDirection);
+       // Debug.DrawRay(transform.position, (Vector3)launchDirection, Color.green);
+        //Debug.Log("Line Direction: " + launchDirection);
     }
 
 
@@ -84,7 +84,7 @@ public class LauncherController : MonoBehaviour
             isBallActive = true;
 
             // Debug information
-            Debug.DrawRay(transform.position, launchDirection * 2f, Color.blue); // Draw a debug ray in the launch direction for the ball
+            //Debug.DrawRay(transform.position, launchDirection * 2f, Color.blue); // Draw a debug ray in the launch direction for the ball
             Debug.Log("Ball Launch Direction: " + launchDirection); // Print the ball launch direction to the console
         }
     }
