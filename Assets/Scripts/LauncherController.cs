@@ -18,7 +18,6 @@ public class LauncherController : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            Debug.Log("LOL");
             Touch touch = Input.GetTouch(0);
             if(touch.phase == TouchPhase.Began)
             {
@@ -42,7 +41,6 @@ public class LauncherController : MonoBehaviour
     public void ResetBallStatus()
     {
         isBallActive = false;
-        Debug.Log(isBallActive);
     }
 }
   

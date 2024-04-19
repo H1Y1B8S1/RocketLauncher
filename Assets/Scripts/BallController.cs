@@ -30,10 +30,10 @@ public class BallController : MonoBehaviour
         //    Debug.Log("Wall hit...");
         //}
 
-        //if (collision.gameObject.CompareTag("Bottom"))
-        //{
-        //    Destroy(gameObject);
-        //}
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            Destroy(gameObject);
+        }
 
         Debug.Log(collision.gameObject.name);
 
