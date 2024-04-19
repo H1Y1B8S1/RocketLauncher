@@ -37,21 +37,10 @@ public class LauncherController : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-
                 Vector2 touchEndPosition = touch.position;
                 Vector2 touchEndWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touchEndPosition.x, touchEndPosition.y, 0f));
 
-                Vector2 touchDirection = (touchEndWorldPosition - (Vector2)transform.position).normalized;
-
-                Debug.Log("touchEndPosition: " + touchEndPosition);
-                Debug.Log("touchEndWorldPosition: " + touchEndWorldPosition);
-                Debug.Log("touchDirection: " + touchDirection);
-
-
-                //Vector2 touchEndPosition = touch.position;
-                //Vector2 touchEndWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touchEndPosition.x, touchEndPosition.y, 0f));
-
-                //Vector2 touchDirection = (touchEndWorldPosition - launcherWorldPosition).normalized;
+                Vector2 touchDirection = (touchEndWorldPosition - launcherWorldPosition).normalized;
 
                 //Debug.Log("launcherWorldPosition: " + launcherWorldPosition);
                 //Debug.Log("touchEndPosition: " + touchEndPosition);
@@ -70,7 +59,7 @@ public class LauncherController : MonoBehaviour
 
     private void UpdateDirectionLine(Vector2 endPosition)
     {
-        Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endPosition.x, Screen.height - endPosition.y, 10f));
+        Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endPosition.x, endPosition.y, 0f));
         Vector2 launchDirection = ((Vector2)touchWorldPosition - (Vector2)transform.position).normalized;
         Vector2 lineEndPosition = (Vector2)transform.position + launchDirection * directionLineSize;
 
@@ -78,10 +67,6 @@ public class LauncherController : MonoBehaviour
         directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
         directionLine.enabled = true;
-
-        // Debug information
-        // Debug.DrawRay(transform.position, (Vector3)launchDirection, Color.green);
-        //Debug.Log("Line Direction: " + launchDirection);
     }
 
 
