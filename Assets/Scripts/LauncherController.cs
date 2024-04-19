@@ -14,6 +14,12 @@ public class LauncherController : MonoBehaviour
     [SerializeField] LineRenderer directionLine;
     [SerializeField] float directionLineSize = 10f;
 
+    private Vector2 launcherPosition;
+
+    private void Start()
+    {
+        launcherPosition = new Vector2(transform.position.x, transform.position.y);
+    }
 
     private void Update()
     {
@@ -32,7 +38,10 @@ public class LauncherController : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector2 touchEndPosition = touch.position;
-                Vector2 touchDelta = touchEndPosition - new Vector2(transform.position.x,transform.position.y);
+                Debug.Log("launcherPosition: " + launcherPosition);
+                Debug.Log("touchEndPosition: "+touchEndPosition);
+
+                Vector2 touchDelta = touchEndPosition - launcherPosition;
 
                 // (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
                 {
@@ -56,7 +65,7 @@ public class LauncherController : MonoBehaviour
         Vector2 lineEndPosition = (Vector2)transform.position + launchDirection * directionLineSize;
 
         Vector3[] linePositions = { transform.position, lineEndPosition };
-        directionLine.positionCount = 3;
+        directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
         directionLine.enabled = true;
 
@@ -85,7 +94,7 @@ public class LauncherController : MonoBehaviour
 
             // Debug information
             //Debug.DrawRay(transform.position, launchDirection * 2f, Color.blue); // Draw a debug ray in the launch direction for the ball
-            Debug.Log("Ball Launch Direction: " + launchDirection); // Print the ball launch direction to the console
+            //Debug.Log("Ball Launch Direction: " + launchDirection); // Print the ball launch direction to the console
         }
     }
 
