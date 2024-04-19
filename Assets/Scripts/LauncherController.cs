@@ -8,6 +8,7 @@ public class LauncherController : MonoBehaviour
     [SerializeField] float launchForce = 10f;
 
     private bool isBallActive = false;
+    private Vector2 touchStartPosition;
 
     private void Awake()
     {
@@ -19,21 +20,31 @@ public class LauncherController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            if(touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began)
             {
-                LaunchBall();
+                touchStartPosition = touch.position;
+                Debug.Log(touchStartPosition);
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                Vector2 touchEndPosition = touch.position;
+                Debug.Log(touchEndPosition);
+                Vector2 touchDirection = (touchEndPosition - touchStartPosition).normalized;
+
+                LaunchBall(touchDirection);
+                Debug.Log(touchDirection);
             }
         }
     }
 
-    private void LaunchBall()
+    private void LaunchBall(Vector2 launchDirection)
     {
         if (!isBallActive)
         {
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 
-            ballRB.velocity = Vector2.up * launchForce;
+            ballRB.velocity = launchDirection * launchForce;
             isBallActive = true;
         }
     }
