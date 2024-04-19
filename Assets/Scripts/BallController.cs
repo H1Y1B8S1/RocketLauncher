@@ -35,7 +35,7 @@ public class BallController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
 
     }
 }

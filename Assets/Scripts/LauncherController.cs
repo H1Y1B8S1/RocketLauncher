@@ -12,12 +12,8 @@ public class LauncherController : MonoBehaviour
     [SerializeField] float minTouchMagnitude = 10f;
 
     [SerializeField] LineRenderer directionLine;
+    [SerializeField] float directionLineSize = 10f;
 
-
-    private void Awake()
-    {
-        isBallActive = false; // Ensure the flag starts as false
-    }
 
     private void Update()
     {
@@ -28,15 +24,18 @@ public class LauncherController : MonoBehaviour
             {
                 touchStartPosition = touch.position;
                 UpdateDirectionLine(touchStartPosition);
+                Debug.Log(touchStartPosition);
             }
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 UpdateDirectionLine(touch.position);
+                Debug.Log(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector2 touchEndPosition = touch.position;
                 Vector2 touchDelta = touchEndPosition - touchStartPosition;
+                Debug.Log(touchDelta);
 
                 if (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
                 {
@@ -55,9 +54,14 @@ public class LauncherController : MonoBehaviour
 
     private void UpdateDirectionLine(Vector2 endPosition)
     {
-        Vector3[] linePositions = { transform.position, endPosition };
+        Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endPosition.x, endPosition.y, 10f));
+        Vector3 launchDirection = (touchWorldPosition - transform.position).normalized;
+        Vector3 lineEndPosition = transform.position + launchDirection * directionLineSize; // Adjust the multiplier (3f) for desired line length
+
+        Vector3[] linePositions = { transform.position, lineEndPosition };
         directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
+        directionLine.enabled = true;
     }
 
     private void ClearDirectionLine()
