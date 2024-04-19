@@ -56,7 +56,7 @@ public class LauncherController : MonoBehaviour
         Vector2 lineEndPosition = (Vector2)transform.position + launchDirection * directionLineSize;
 
         Vector3[] linePositions = { transform.position, lineEndPosition };
-        directionLine.positionCount = 2;
+        directionLine.positionCount = 3;
         directionLine.SetPositions(linePositions);
         directionLine.enabled = true;
 
