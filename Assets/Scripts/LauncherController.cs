@@ -24,18 +24,15 @@ public class LauncherController : MonoBehaviour
             {
                 touchStartPosition = touch.position;
                 UpdateDirectionLine(touchStartPosition);
-                Debug.Log(touchStartPosition);
             }
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 UpdateDirectionLine(touch.position);
-                Debug.Log(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector2 touchEndPosition = touch.position;
                 Vector2 touchDelta = touchEndPosition - touchStartPosition;
-                Debug.Log(touchDelta);
 
                 if (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
                 {
@@ -61,8 +58,13 @@ public class LauncherController : MonoBehaviour
         Vector3[] linePositions = { transform.position, lineEndPosition };
         directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
-        directionLine.enabled = true;
+        directionLine.enabled = true; // Ensure the line renderer is enabled
+
+        // Debug information
+        Debug.DrawRay(transform.position, launchDirection, Color.green); // Draw a debug ray in the launch direction
+        Debug.Log("Line Direction: " + launchDirection); // Print the launch direction to the console
     }
+
 
     private void ClearDirectionLine()
     {
@@ -79,8 +81,13 @@ public class LauncherController : MonoBehaviour
 
             ballRB.velocity = launchDirection * launchForce;
             isBallActive = true;
+
+            // Debug information
+            Debug.DrawRay(transform.position, launchDirection * 2f, Color.blue); // Draw a debug ray in the launch direction for the ball
+            Debug.Log("Ball Launch Direction: " + launchDirection); // Print the ball launch direction to the console
         }
     }
+
 
     public void ResetBallStatus()
     {
