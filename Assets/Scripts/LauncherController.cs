@@ -9,6 +9,10 @@ public class LauncherController : MonoBehaviour
 
     private bool isBallActive = false;
     private Vector2 touchStartPosition;
+    [SerializeField] float minTouchMagnitude = 10f;
+
+    [SerializeField] LineRenderer directionLine;
+
 
     private void Awake()
     {
@@ -23,19 +27,44 @@ public class LauncherController : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 touchStartPosition = touch.position;
-                Debug.Log(touchStartPosition);
+                UpdateDirectionLine(touchStartPosition);
+            }
+            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+            {
+                UpdateDirectionLine(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
                 Vector2 touchEndPosition = touch.position;
-                Debug.Log(touchEndPosition);
-                Vector2 touchDirection = (touchEndPosition - touchStartPosition).normalized;
+                Vector2 touchDelta = touchEndPosition - touchStartPosition;
 
-                LaunchBall(touchDirection);
-                Debug.Log(touchDirection);
+                if (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
+                {
+                    Vector2 touchDirection = touchDelta.normalized;
+                    LaunchBall(touchDirection);
+                }
+
+                ClearDirectionLine();
             }
         }
+        else
+        {
+            ClearDirectionLine();
+        }
     }
+
+    private void UpdateDirectionLine(Vector2 endPosition)
+    {
+        Vector3[] linePositions = { transform.position, endPosition };
+        directionLine.positionCount = 2;
+        directionLine.SetPositions(linePositions);
+    }
+
+    private void ClearDirectionLine()
+    {
+        directionLine.positionCount = 0;
+    }
+
 
     private void LaunchBall(Vector2 launchDirection)
     {
