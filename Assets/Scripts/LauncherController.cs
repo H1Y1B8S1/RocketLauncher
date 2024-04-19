@@ -8,17 +8,17 @@ public class LauncherController : MonoBehaviour
     [SerializeField] float launchForce = 10f;
 
     private bool isBallActive = false;
-    private Vector2 touchStartPosition;
-    [SerializeField] float minTouchMagnitude = 10f;
+   // [SerializeField] float minTouchMagnitude = 10f;
 
     [SerializeField] LineRenderer directionLine;
     [SerializeField] float directionLineSize = 10f;
 
-    private Vector2 launcherPosition;
+    private Vector2 touchStartPosition;
+    private Vector2 launcherWorldPosition;
 
     private void Start()
     {
-        launcherPosition = new Vector2(transform.position.x, transform.position.y);
+        launcherWorldPosition = transform.position;
     }
 
     private void Update()
@@ -28,8 +28,8 @@ public class LauncherController : MonoBehaviour
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                touchStartPosition = touch.position;
                 UpdateDirectionLine(touchStartPosition);
+                touchStartPosition = touch.position;
             }
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
@@ -37,18 +37,28 @@ public class LauncherController : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
+
                 Vector2 touchEndPosition = touch.position;
-                Debug.Log("launcherPosition: " + launcherPosition);
-                Debug.Log("touchEndPosition: "+touchEndPosition);
+                Vector2 touchEndWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touchEndPosition.x, touchEndPosition.y, 0f));
 
-                Vector2 touchDelta = touchEndPosition - launcherPosition;
+                Vector2 touchDirection = (touchEndWorldPosition - (Vector2)transform.position).normalized;
 
-                // (touchDelta.sqrMagnitude >= minTouchMagnitude * minTouchMagnitude)
-                {
-                    Vector2 touchDirection = touchDelta.normalized;
-                    LaunchBall(touchDirection);
-                }
+                Debug.Log("touchEndPosition: " + touchEndPosition);
+                Debug.Log("touchEndWorldPosition: " + touchEndWorldPosition);
+                Debug.Log("touchDirection: " + touchDirection);
 
+
+                //Vector2 touchEndPosition = touch.position;
+                //Vector2 touchEndWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touchEndPosition.x, touchEndPosition.y, 0f));
+
+                //Vector2 touchDirection = (touchEndWorldPosition - launcherWorldPosition).normalized;
+
+                //Debug.Log("launcherWorldPosition: " + launcherWorldPosition);
+                //Debug.Log("touchEndPosition: " + touchEndPosition);
+                //Debug.Log("touchEndWorldPosition: " + touchEndWorldPosition);
+                //Debug.Log("touchDirection: " + touchDirection);
+
+                LaunchBall(touchDirection);
                 ClearDirectionLine();
             }
         }
@@ -60,7 +70,7 @@ public class LauncherController : MonoBehaviour
 
     private void UpdateDirectionLine(Vector2 endPosition)
     {
-        Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endPosition.x, endPosition.y, 10f));
+        Vector3 touchWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(endPosition.x, Screen.height - endPosition.y, 10f));
         Vector2 launchDirection = ((Vector2)touchWorldPosition - (Vector2)transform.position).normalized;
         Vector2 lineEndPosition = (Vector2)transform.position + launchDirection * directionLineSize;
 
@@ -70,7 +80,7 @@ public class LauncherController : MonoBehaviour
         directionLine.enabled = true;
 
         // Debug information
-       // Debug.DrawRay(transform.position, (Vector3)launchDirection, Color.green);
+        // Debug.DrawRay(transform.position, (Vector3)launchDirection, Color.green);
         //Debug.Log("Line Direction: " + launchDirection);
     }
 
