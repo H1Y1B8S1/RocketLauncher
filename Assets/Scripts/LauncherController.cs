@@ -83,31 +83,36 @@ public class LauncherController : MonoBehaviour
         {
             RaycastHit[] hits = Physics.RaycastAll(transform.position, new Vector3(launchDirection.x, launchDirection.y, 0f), Mathf.Infinity);
 
-            int brickCount = 0;
-
-            foreach (RaycastHit hit in hits)
-            {
-                if (hit.collider.CompareTag("Brick")) // Assuming "Brick" is the tag for your brick GameObjects
-                {
-                    Destroy(hit.collider.gameObject);
-                    brickCount++;
-                }
-            }
-
-            Debug.Log("Total Bricks Hit: " + brickCount);
-
+            StartCoroutine(DestroyBricksWithDelay(hits));
 
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 
-            ballRB.velocity = launchDirection * launchForce;
+            ballRB.velocity = new Vector3(launchDirection.x, launchDirection.y, 0f) * launchForce;
             isBallActive = true;
-
-            // Debug information
-            //Debug.DrawRay(transform.position, launchDirection * 2f, Color.blue); // Draw a debug ray in the launch direction for the ball
-            //Debug.Log("Ball Launch Direction: " + launchDirection); // Print the ball launch direction to the console
         }
     }
+
+    private IEnumerator DestroyBricksWithDelay(RaycastHit[] hits)
+    {
+        float delayBetweenBrickDestroy = 0.5f; // Adjust the delay time as needed
+
+        int brickCount = 0;
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Brick")) // Assuming "Brick" is the tag for your brick GameObjects
+            {
+                yield return new WaitForSeconds(delayBetweenBrickDestroy);
+                Destroy(hit.collider.gameObject);
+                brickCount++;
+                delayBetweenBrickDestroy = 0.01f;
+            }
+        }
+
+        Debug.Log("Total Bricks Hit: " + brickCount);
+    }
+
 
 
     public void ResetBallStatus()
