@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private LauncherController launcherController;
-    [SerializeField] Audio _audio;
+    private Audio _audio;
 
     private readonly float balldestorytime = 1.5f;
     [SerializeField] float areaDistroyByBall = 0.5f;
@@ -17,6 +17,7 @@ public class BallController : MonoBehaviour
     private void Start()
     {
         launcherController = FindObjectOfType<LauncherController>();
+        _audio = FindObjectOfType<Audio>();
         StartCoroutine(DestroyAfterLifetime());
     }
 
@@ -42,8 +43,15 @@ public class BallController : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+            else if (collision.gameObject.CompareTag("Wall"))
+            {
+                _audio.PlayAudio(0);
+            }
         }
-        //_audio.PlayAudio(0);
+        else
+        {
+            _audio.PlayAudio(1);
+        }
 
     }
 

@@ -99,7 +99,7 @@ public class LauncherController : MonoBehaviour
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 
             ballRB.velocity = (Vector3)launchDirection * launchForce;
-            _audio.PlayAudio(0);
+            //_audio.PlayAudio(0);
             isBallActive = true;
         }
     }
