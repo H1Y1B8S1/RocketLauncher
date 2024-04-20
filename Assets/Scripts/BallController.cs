@@ -5,7 +5,10 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private LauncherController launcherController;
-    private float balldestorytime = 1.5f;
+    private readonly float balldestorytime = 1.5f;
+    [SerializeField] float areadistroyByBall = 0.5f;
+
+
 
     [System.Obsolete]
     private void Start()
@@ -42,11 +45,18 @@ public class BallController : MonoBehaviour
     private void Update()
     {
         Vector3 ballDirection = GetComponent<Rigidbody>().velocity.normalized;
-        RaycastHit[] hits = Physics.RaycastAll(transform.position, new Vector3(ballDirection.x, ballDirection.y, 0f), Mathf.Infinity);
+
+
+        // Cast a sphere along the ray to detect collisions
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, areadistroyByBall, new Vector3(ballDirection.x, ballDirection.y, 0f), Mathf.Infinity);
+
+        // Visualize the raycast (optional)
+        Debug.DrawRay(transform.position, new Vector3(ballDirection.x, ballDirection.y, 0f) * 10f, Color.red);
 
         StartCoroutine(DestroyBricksWithDelay(hits));
-
     }
+
+
 
     private IEnumerator DestroyBricksWithDelay(RaycastHit[] hits)
     {

@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 7990103479640592670, guid: e32b6bd0595a10e4eb6babc9bcbf1964, type: 3}
-  launchForce: 10
+  launchForce: 13
   directionLine: {fileID: 621117320}
   directionLineSize: 10
 --- !u!120 &621117320
