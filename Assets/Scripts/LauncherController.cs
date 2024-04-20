@@ -81,6 +81,22 @@ public class LauncherController : MonoBehaviour
     {
         if (!isBallActive)
         {
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, new Vector3(launchDirection.x, launchDirection.y, 0f), Mathf.Infinity);
+
+            int brickCount = 0;
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.CompareTag("Brick")) // Assuming "Brick" is the tag for your brick GameObjects
+                {
+                    Destroy(hit.collider.gameObject);
+                    brickCount++;
+                }
+            }
+
+            Debug.Log("Total Bricks Hit: " + brickCount);
+
+
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 

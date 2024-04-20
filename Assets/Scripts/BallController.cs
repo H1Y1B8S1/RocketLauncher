@@ -29,9 +29,12 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Finish"))
+        if (!collision.gameObject.CompareTag("Brick")) // Assuming "Brick" is the tag for your brick GameObjects
         {
-            Destroy(gameObject);
+            if (collision.gameObject.CompareTag("Finish"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
