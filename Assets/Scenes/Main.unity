@@ -7080,6 +7080,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 07b91611dae64ad4db11aaebe6f3c8d3, type: 3}
   - {fileID: 8300000, guid: e0a4f8dfd5c89ea448b12360801f1f93, type: 3}
+  - {fileID: 8300000, guid: 03c4a35139db19d47a95e748125887c4, type: 3}
 --- !u!82 &740398451
 AudioSource:
   m_ObjectHideFlags: 0

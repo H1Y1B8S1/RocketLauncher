@@ -42,6 +42,7 @@ public class BallController : MonoBehaviour
             if (collision.gameObject.CompareTag("Finish"))
             {
                 Destroy(gameObject);
+                _audio.PlayAudio(2);
             }
             else if (collision.gameObject.CompareTag("Wall"))
             {
