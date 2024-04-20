@@ -8,7 +8,6 @@ public class LauncherController : MonoBehaviour
     [SerializeField] float launchForce = 10f;
 
     private bool isBallActive = false;
-   // [SerializeField] float minTouchMagnitude = 10f;
 
     [SerializeField] LineRenderer directionLine;
     [SerializeField] float directionLineSize = 10f;
@@ -42,11 +41,6 @@ public class LauncherController : MonoBehaviour
 
                 Vector2 touchDirection = (touchEndWorldPosition - launcherWorldPosition).normalized;
 
-                //Debug.Log("launcherWorldPosition: " + launcherWorldPosition);
-                //Debug.Log("touchEndPosition: " + touchEndPosition);
-                //Debug.Log("touchEndWorldPosition: " + touchEndWorldPosition);
-                //Debug.Log("touchDirection: " + touchDirection);
-
                 LaunchBall(touchDirection);
                 ClearDirectionLine();
             }
@@ -69,8 +63,6 @@ public class LauncherController : MonoBehaviour
         directionLine.enabled = true;
     }
 
-
-
     private void ClearDirectionLine()
     {
         directionLine.positionCount = 0;
@@ -81,8 +73,6 @@ public class LauncherController : MonoBehaviour
     {
         if (!isBallActive)
         {
-
-
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 

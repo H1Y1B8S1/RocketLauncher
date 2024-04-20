@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private LauncherController launcherController;
+    private float balldestorytime = 1.5f;
 
     [System.Obsolete]
     private void Start()
@@ -15,7 +16,7 @@ public class BallController : MonoBehaviour
 
     private IEnumerator DestroyAfterLifetime()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(balldestorytime);
         Destroy(gameObject);
     }
 
