@@ -6,6 +6,7 @@ public class LauncherController : MonoBehaviour
 {
     [SerializeField] GameObject ballPrefab;
     [SerializeField] float launchForce = 10f;
+    [SerializeField] Audio _audio;
 
     private bool isBallActive = false;
 
@@ -98,6 +99,7 @@ public class LauncherController : MonoBehaviour
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 
             ballRB.velocity = (Vector3)launchDirection * launchForce;
+            _audio.PlayAudio(0);
             isBallActive = true;
         }
     }

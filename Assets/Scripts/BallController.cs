@@ -5,6 +5,8 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     private LauncherController launcherController;
+    [SerializeField] Audio _audio;
+
     private readonly float balldestorytime = 1.5f;
     [SerializeField] float areaDistroyByBall = 0.5f;
     [SerializeField] float maxDistance = 10f;
@@ -41,6 +43,8 @@ public class BallController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        //_audio.PlayAudio(0);
+
     }
 
     private void Update()
