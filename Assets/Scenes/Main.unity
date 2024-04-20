@@ -7399,6 +7399,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall  (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 128645663176144331, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -10877,6 +10881,10 @@ PrefabInstance:
     - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_Name
       value: Wall  (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 128645663176144331, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_IsActive
@@ -16843,6 +16851,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall  (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 128645663176144331, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -19272,6 +19284,10 @@ PrefabInstance:
     - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_Name
       value: Wall  (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 128645663176144331, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_IsActive
@@ -22990,6 +23006,10 @@ PrefabInstance:
     - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_Name
       value: 'Wall '
+      objectReference: {fileID: 0}
+    - target: {fileID: 107212665281733040, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 128645663176144331, guid: e6c3dcd01a635c44485a2f14d13ee217, type: 3}
       propertyPath: m_IsActive

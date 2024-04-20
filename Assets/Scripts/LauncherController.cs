@@ -57,6 +57,12 @@ public class LauncherController : MonoBehaviour
         Vector2 launchDirection = ((Vector2)touchWorldPosition - (Vector2)transform.position).normalized;
         Vector2 lineEndPosition = (Vector2)transform.position + launchDirection * directionLineSize;
 
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, (Vector3)launchDirection, out hit, directionLineSize))
+        {
+            lineEndPosition = hit.point;
+        }
+
         Vector3[] linePositions = { transform.position, lineEndPosition };
         directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
@@ -72,10 +78,10 @@ public class LauncherController : MonoBehaviour
         directionLine.startWidth = 0.01f; // Set the width of the dots
         directionLine.endWidth = 0.01f; // Set the width of the dots
         directionLine.textureMode = LineTextureMode.Tile; // Set texture mode to tile for dotted effect
-        //directionLine.material.mainTexture = Resources.Load<Texture2D>("dot_texture"); // Load a texture for the dots
 
         directionLine.enabled = true;
     }
+
 
 
     private void ClearDirectionLine()
