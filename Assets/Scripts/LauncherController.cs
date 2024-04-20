@@ -60,8 +60,23 @@ public class LauncherController : MonoBehaviour
         Vector3[] linePositions = { transform.position, lineEndPosition };
         directionLine.positionCount = 2;
         directionLine.SetPositions(linePositions);
+
+        // Change line color
+        directionLine.startColor = Color.red;
+        directionLine.endColor = Color.Lerp(Color.red, Color.green, 2f);
+
+        // Set line material to a dotted line material
+        directionLine.material = new Material(Shader.Find("Sprites/Default"));
+
+        // Adjust line properties for dotted effect
+        directionLine.startWidth = 0.01f; // Set the width of the dots
+        directionLine.endWidth = 0.01f; // Set the width of the dots
+        directionLine.textureMode = LineTextureMode.Tile; // Set texture mode to tile for dotted effect
+        //directionLine.material.mainTexture = Resources.Load<Texture2D>("dot_texture"); // Load a texture for the dots
+
         directionLine.enabled = true;
     }
+
 
     private void ClearDirectionLine()
     {
