@@ -81,37 +81,17 @@ public class LauncherController : MonoBehaviour
     {
         if (!isBallActive)
         {
-            RaycastHit[] hits = Physics.RaycastAll(transform.position, new Vector3(launchDirection.x, launchDirection.y, 0f), Mathf.Infinity);
 
-            StartCoroutine(DestroyBricksWithDelay(hits));
 
             GameObject ball = Instantiate(ballPrefab, transform.position, Quaternion.identity);
             Rigidbody ballRB = ball.GetComponent<Rigidbody>();
 
-            ballRB.velocity = new Vector3(launchDirection.x, launchDirection.y, 0f) * launchForce;
+            ballRB.velocity = (Vector3)launchDirection * launchForce;
             isBallActive = true;
         }
     }
 
-    private IEnumerator DestroyBricksWithDelay(RaycastHit[] hits)
-    {
-        float delayBetweenBrickDestroy = 0.5f; // Adjust the delay time as needed
-
-        int brickCount = 0;
-
-        foreach (RaycastHit hit in hits)
-        {
-            if (hit.collider.CompareTag("Brick")) // Assuming "Brick" is the tag for your brick GameObjects
-            {
-                yield return new WaitForSeconds(delayBetweenBrickDestroy);
-                Destroy(hit.collider.gameObject);
-                brickCount++;
-                delayBetweenBrickDestroy = 0.01f;
-            }
-        }
-
-        Debug.Log("Total Bricks Hit: " + brickCount);
-    }
+ 
 
 
 
