@@ -46,11 +46,8 @@ public class BallController : MonoBehaviour
     {
         Vector3 ballDirection = GetComponent<Rigidbody>().velocity.normalized;
 
-
-        // Cast a sphere along the ray to detect collisions
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, areadistroyByBall, new Vector3(ballDirection.x, ballDirection.y, 0f), Mathf.Infinity);
 
-        // Visualize the raycast (optional)
         Debug.DrawRay(transform.position, new Vector3(ballDirection.x, ballDirection.y, 0f) * 10f, Color.red);
 
         StartCoroutine(DestroyBricksWithDelay(hits));
@@ -71,7 +68,19 @@ public class BallController : MonoBehaviour
                 yield return new WaitForSeconds(delayBetweenBrickDestroy);
                 if (hit.collider != null && hit.collider.gameObject != null) // Check again before destroying to avoid null reference
                 {
-                    Destroy(hit.collider.gameObject);
+                    Rigidbody brickRigidbody = hit.collider.gameObject.GetComponent<Rigidbody>();
+                    if (brickRigidbody != null)
+                    {
+                        brickRigidbody.useGravity = true; // Enable gravity on the Rigidbody
+                    }
+
+                    Collider brickCollider = hit.collider.gameObject.GetComponent<Collider>();
+                    if (brickCollider != null)
+                    {
+                        brickCollider.enabled = false; // Disable the BoxCollider
+                    }
+
+                    //Destroy(hit.collider.gameObject);
                     brickCount++;
                     delayBetweenBrickDestroy = 0.01f;
                 }
@@ -80,5 +89,6 @@ public class BallController : MonoBehaviour
 
         Debug.Log("Total Bricks Hit: " + brickCount);
     }
+
 
 }
