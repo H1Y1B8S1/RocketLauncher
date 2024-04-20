@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-
-    private readonly float ballLifetime = 3f;
     private LauncherController launcherController;
 
     [System.Obsolete]
     private void Start()
     {
         launcherController = FindObjectOfType<LauncherController>();
-        Destroy(gameObject, ballLifetime);
+        StartCoroutine(DestroyAfterLifetime());
+    }
+
+    private IEnumerator DestroyAfterLifetime()
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 
     private void OnDestroy()
@@ -25,17 +29,9 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.CompareTag("Wall") && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        //{
-        //    Debug.Log("Wall hit...");
-        //}
-
         if (collision.gameObject.CompareTag("Finish"))
         {
             Destroy(gameObject);
         }
-
-        //Debug.Log(collision.gameObject.name);
-
     }
 }
