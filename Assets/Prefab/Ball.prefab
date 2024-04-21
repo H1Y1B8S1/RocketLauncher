@@ -149,5 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2be7171e7a2254e92e476cc32811f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaDistroyByBall: 0.5
+  areaDistroyByBall: 0.8
   maxDistance: 0
